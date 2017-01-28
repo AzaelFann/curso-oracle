@@ -43,3 +43,26 @@ CREATE sequence sec_persona start with 1 increment BY 1 nomaxvalue;
       edad       INTEGER,
       CONSTRAINT pk_id_persona PRIMARY KEY(id_persona)
     );
+
+--
+
+create or replace procedure guardar_persona (my_id OUT integer, my_nombre IN varchar2, my_edad IN integer)
+AS
+BEGIN
+select sec_persona.nextval into my_id from dual;
+insert into persona values (my_id, my_nombre, my_edad);
+end;
+/
+
+declare
+valor integer;
+begin
+guardar_persona(valor,'Azael', 27)
+end;
+/
+
+select * from persona;
+
+
+
+
