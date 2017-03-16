@@ -64,3 +64,27 @@ select * from papa;
 select * from hijomayor;
 select * from hijomenor;
 
+
+
+
+CREATE TABLE trabajador
+  (
+    id     INTEGER,
+    nombre VARCHAR2(20),
+    sueldo_base FLOAT,
+    CONSTRAINT pk_id5 PRIMARY KEY (id)
+  );
+--
+  CREATE TABLE respaldo
+  (
+    id     INTEGER,
+    nombre VARCHAR2(20),
+    sueldo_base FLOAT,
+    CONSTRAINT pk_id6 PRIMARY KEY (id)
+  );
+--
+--para hacer mas simple el disparador se necesitan dos procedimientos
+--uno que cuente y uno que borre
+--
+--
+create or replace procedure contar
