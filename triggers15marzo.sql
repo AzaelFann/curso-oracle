@@ -119,7 +119,7 @@ as
 cursor cur_usuarioinicial is select * from usuarioinicial;
 begin
 for rec in cur_usuarioinicial loop
-insert into respaldo_usuarioinicial(rec.id, rec.nombre);
+insert into respaldo_usuarioinicial values(rec.id, rec.nombre);
 end loop;
 end;
 /
