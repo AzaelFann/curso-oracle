@@ -88,3 +88,51 @@ CREATE TABLE trabajador
 --
 --
 create or replace procedure contar
+
+
+
+CREATE TABLE usuarioinicial
+  (
+    id     INTEGER,
+    nombre VARCHAR2(20),
+  );
+--
+  CREATE TABLE respaldo_usuarioinicial
+  (
+    id     INTEGER,
+    nombre VARCHAR2(20),
+  );
+--
+--para hacer mas simple el disparador se necesitan dos procedimientos
+--uno que cuente y uno que borre
+--
+--
+create or replace procedure contar(numero out integer)
+as begin
+select(*) count into numero from usuarioinicial;
+dbms_output.out.kine('encontrados ' ||numero);
+end;
+/
+
+create or replace procedure copiar
+as
+cursor cur_usuarioinicial is select * from usuarioinicial;
+begin
+for rec in cur_usuarioinicial loop
+insert into respaldo_usuarioinicial(rec.id, rec.nombre);
+end loop;
+end;
+/
+
+create or repalce trigger disp_usuarioinicial
+before insert on usuarioinicial for each row
+declare
+valor integer;
+begin
+contar(valor);
+if valor = 3 then
+copiar();
+delete from usuarioinicial;
+end if;
+end;
+/
